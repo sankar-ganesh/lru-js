@@ -1,11 +1,10 @@
 {
   "name": "lrujs-cache",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
-    "test": "mocha",
-    "build": "webpack"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

@@ -7,7 +7,7 @@ var dll = require('./utils/dll');
  *  Methods:
  *  encache - {key, value} adds value to LRU Cache
  *  fetch   - {key} fetch the value from LRU Cache
- *  flush   - burst the cache
+ *  flush   - bust the cache
  */
 
 var LRU = (function() {
