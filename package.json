@@ -1,11 +1,15 @@
 {
-  "name": "lru-js",
+  "name": "lrujs-cache",
   "version": "1.0.0",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
     "test": "mocha",
     "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sankar-ganesh/lrujs-cache.git"
   },
   "keywords": [
     "LRU",
