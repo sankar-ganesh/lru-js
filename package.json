@@ -1,0 +1,20 @@
+{
+  "name": "lru-js",
+  "version": "1.0.0",
+  "description": "Least Recently Used Cache",
+  "main": "lru.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "webpack"
+  },
+  "keywords": [
+    "LRU",
+    "Cache"
+  ],
+  "author": "Sankar Ganesh",
+  "license": "ISC",
+  "private": false,
+  "devDependencies": {
+    "mocha": "^6.2.1"
+  }
+}
