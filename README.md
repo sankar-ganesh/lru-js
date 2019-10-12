@@ -20,19 +20,19 @@ Least Recently Used (LRU) Caching Technique
 
 ```javascript
 // To access LRU Cache
-var lru = require('lrujs-cache');
+import lru from 'lrujs-cache';
 
 // To bust the cache
 lru.clear();
 
-// To restrict the size to 5
+// To restrict the cache size to 5
 lru.limit(5);
 
-// To set the value in cache
+// To set the value in cache => Sets 1 into cache
 lru.set('one', 1);
 
-// To get the value from cache
-lru.get('one'); => Returns 1
+// To get the value from cache => Returns 1 from cache
+lru.get('one');
 ```
 
 ## Installation
