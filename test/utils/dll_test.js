@@ -1,5 +1,5 @@
 var assert = require('assert');
-var dll = require('../../utils/dll');
+import dll from '../../utils/dll';
 
 module.exports = function DLLNodeTest() {
   beforeEach(function() {

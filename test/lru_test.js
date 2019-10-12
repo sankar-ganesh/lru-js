@@ -1,5 +1,5 @@
 var assert = require('assert');
-var lru = require('../lru');
+import lru from '../lru';
 
 module.exports = function DLLNodeTest() {
   beforeEach(function() {

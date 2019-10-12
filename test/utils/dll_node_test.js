@@ -1,5 +1,5 @@
 var assert = require('assert');
-var DLLNode = require('../../utils/dll_node');
+import DLLNode from '../../utils/dll_node';
 
 module.exports = function DLLNodeTest() {
   it('should return node with two pointers with default values on create', function() {

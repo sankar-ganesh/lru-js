@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  *  Doubly Linked List Node
  *
@@ -38,4 +40,4 @@ DLLNode.prototype.right = function() {
   return this._rightNode;
 };
 
-module.exports = DLLNode;
+export default DLLNode;

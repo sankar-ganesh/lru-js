@@ -1,4 +1,6 @@
-var dll = require('./utils/dll');
+"use strict";
+
+import dll from './utils/dll';
 
 /*
  *  Least Recently Used Cache : A cache which rotates recently used item in the cache
@@ -31,9 +33,9 @@ var LRU = (function() {
           
           // Delete the key from keystore
           delete keystore[node.value().key];
-          
+
           // Delete the node
-          delete node;
+          delete node.value();
           
           // Update keystore to hold the node pointer
           keystore[key] = dll.enqueue({key: key, value: value});
@@ -73,4 +75,4 @@ var LRU = (function() {
   };
 }());
 
-module.exports = LRU;
+export default LRU;

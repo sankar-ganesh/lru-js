@@ -4,7 +4,9 @@
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --require @babel/register",
+    "develop": "webpack --mode development --watch",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,13 @@
   "license": "ISC",
   "private": false,
   "devDependencies": {
-    "mocha": "^6.2.1"
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "mocha": "^6.2.1",
+    "webpack": "^4.41.1",
+    "webpack-cli": "^3.3.9"
   }
 }

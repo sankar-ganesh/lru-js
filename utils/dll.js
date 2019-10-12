@@ -1,4 +1,6 @@
-var DLLNode = require('./dll_node');
+"use strict";
+
+import DLLNode from './dll_node';
 
 /*
  *  Doubly Linked List is a singleton object which allows you to undergo the following operations
@@ -71,7 +73,10 @@ var DLL = (function() {
       if (head && tail) {
         // Check For Single Node
         if (head === tail) {
-          delete head;
+          // Delete Node Value
+          delete head.value();
+          
+          // Reset Head & Tail Pointer
           head = tail = null;
         } else {
           let dllNode = tail;
@@ -131,9 +136,11 @@ var DLL = (function() {
       let ptr = head;
 
       while (ptr !== null) {
-        let dllNode = ptr;
+        // Delete Node Value
+        delete ptr.value();
+
+        // Move Pointer
         ptr = ptr.right();
-        delete dllNode;
       }
 
       tail = head = null;
@@ -141,4 +148,4 @@ var DLL = (function() {
   };
 }());
 
-module.exports = DLL;
+export default DLL;
