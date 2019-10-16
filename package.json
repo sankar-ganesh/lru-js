@@ -1,12 +1,13 @@
 {
   "name": "lrujs-cache",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
-    "test": "mocha --require @babel/register",
+    "build": "webpack --mode production",
     "develop": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "lint": "eslint --ignore-path=.gitignore . test",
+    "test": "mocha --require @babel/register"
   },
   "repository": {
     "type": "git",
@@ -23,8 +24,11 @@
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/register": "^7.6.2",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.5.1",
     "mocha": "^6.2.1",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"

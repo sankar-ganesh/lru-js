@@ -33,6 +33,12 @@ lru.set('one', 1);
 
 // To get the value from cache => Returns 1 from cache
 lru.get('one');
+
+// To clear the key from cache
+lru.clear('one');
+
+// To clear multiple keys from cache
+lru.clear(['one', 'two']);
 ```
 
 ## Installation
