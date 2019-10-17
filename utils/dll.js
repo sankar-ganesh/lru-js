@@ -73,19 +73,18 @@ var DLL = (function() {
       if (head && tail) {
         // Check For Single Node
         if (head === tail) {
-          // Delete Node Value
-          delete head.value();
+          let dllNode = head;
           
           // Reset Head & Tail Pointer
           head = tail = null;
+
+          return dllNode;
         } else {
           let dllNode = tail;
           tail = tail.left();
           
           // Check For Tail
-          if (tail === null) {
-            head = tail;
-          } else {
+          if (tail) {
             tail.setRight(null);
           }
           return dllNode;
@@ -94,7 +93,7 @@ var DLL = (function() {
     },
 
     add: function(value, after) {
-      if (after) {
+      if (after && after.constructor.name === 'DLLNode') {
         let dllNode = new DLLNode(value, null, null),
             right = after.right();
         dllNode.setLeft(after);
@@ -114,7 +113,7 @@ var DLL = (function() {
     },
 
     delete: function(node) {
-      if (node) {
+      if (node && node.constructor.name === 'DLLNode') {
         let left = node.left(),
             right = node.right();
 

@@ -10,6 +10,15 @@ module.exports = function DLLNodeTest() {
     assert.equal(lru.get('one'), void 0);
   });
 
+  it('check empty lru get', function() {
+    assert.equal(lru.get(), void 0);
+  });
+
+  it('check empty lru set', function() {
+    lru.set();
+    assert.equal(lru.get('one'), void 0);
+  });
+
   it('check lru for exist', function() {
   	lru.set('one', 'one');
   	let one = lru.get('one');
@@ -130,5 +139,8 @@ module.exports = function DLLNodeTest() {
     lru.set('three', 'three');
     assert.equal(lru.get('six'), void 0);
     assert.equal(lru.get('five'), 'five');
+
+    // Setting empty limit dis-allow update cache size
+    lru.limit();
   });
 };
