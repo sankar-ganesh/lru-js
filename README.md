@@ -53,7 +53,7 @@ lru.set({
 	value: 3,
 
 	// Clock will get reset only if timeToLive (ms) is updated
-	timeToIdle: 10000
+	timeToLive: 10000
 });
 
 // To get the value from cache => Returns 1 from cache
