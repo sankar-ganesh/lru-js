@@ -37,15 +37,23 @@ lru.set({
 // To set the value in cache with timeToIdle (ms)
 lru.set({
 	key: 'two',
-	value: 2,								// Value will get reset after timeToIdle (ms)
-	timeToIdle: 10000				// Clock will get reset if value is accessed with timeToIdle (ms)
+	
+	// Value will get reset after timeToIdle (ms)
+	value: 2,
+	
+	// Clock will get reset if value is accessed with timeToIdle (ms)
+	timeToIdle: 10000
 });
 
 // To set the value in cache with timeToLive (ms)
 lru.set({
 	key: 'three',
-	value: 3,								// Value will be dropped after timeToLive (ms)
-	timeToIdle: 10000				// Clock will get reset only if timeToLive (ms) is updated
+	
+	// Value will be dropped after timeToLive (ms)
+	value: 3,
+
+	// Clock will get reset only if timeToLive (ms) is updated
+	timeToIdle: 10000
 });
 
 // To get the value from cache => Returns 1 from cache
