@@ -2,3 +2,15 @@ language: node_js
 
 node_js:
  - "node"
+
+install:
+  - npm install -g codecov
+
+before_install:
+  - pip install --user codecov
+
+after_success:
+  - codecov --file coverage/lcov.info --disable search
+
+env:
+  - CODECOV_TOKEN="dfb3d166-aa9e-47a9-ae9b-0c0db7dd8a96"

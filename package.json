@@ -1,13 +1,13 @@
 {
   "name": "lrujs-cache",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
     "build": "webpack --mode production",
     "develop": "webpack --mode development --watch",
     "lint": "eslint --ignore-path=.gitignore . test",
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register"
+    "test": "nyc --reporter=lcov --reporter=text mocha --require @babel/register"
   },
   "repository": {
     "type": "git",
