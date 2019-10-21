@@ -3,7 +3,10 @@ import LRU from './lru';
 window.setValue = function() {
 	const cache = document.getElementById('cache');
 	const key = 'cache';
-	LRU.set(key, cache.value);
+	LRU.set({
+		key: key,
+		value: cache.value
+	});
 };
 
 window.getValue = function() {

@@ -1,6 +1,6 @@
 {
   "name": "lrujs-cache",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
@@ -31,6 +31,7 @@
     "eslint": "^6.5.1",
     "mocha": "^6.2.1",
     "nyc": "^14.1.1",
+    "sinon": "^7.5.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9"
   }

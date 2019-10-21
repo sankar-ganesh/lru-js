@@ -8,98 +8,88 @@ import dll from './utils/dll';
  *  and helps to retain the value when the cache run out of space
  *
  *  Methods:
- *  set   - {key, value} adds value to LRU Cache
- *  get   - {key} fetch the value from LRU Cache
- *  clear - {keys} if keys is empty bust the cache
- *  limit - {size} set the size of the cache
+ *  set     - {key, value} sets the value to LRU Cache
+ *  get     - {key} fetch the value from LRU Cache
+ *  clear   - {keys} Bust all given keys in the cache
+ *  limit   - {size} set the size of the cache
+ *  length  - returns the length of the active keys in cache
  */
 
 const LRU = (function() {
-  var size = 5,
-      index = 0,
-      keystore = {};
+  var keystore = {};
 
   return {
-    set: function(key, value) {
-      if (key && value) {
-        // Check For Limit
-        if (index < size) {
-          // Update keystore to hold the node pointer
-          keystore[key] = dll.enqueue({key: key, value: value});
-          
-          // Update Index
-          index += 1;
-        } else {
-          // Remove the tail node upon reaching the limit
-          let node = dll.dequeue();
-          
-          // Delete the key from keystore
-          delete keystore[node.value().key];
+    set: function(obj) {
+      let nodeKey = obj && obj.key,
+          nodeExist = nodeKey && keystore[nodeKey] || null,
+          nodeValue = nodeExist && nodeExist.value();
 
-          // Delete the node
-          delete node.value();
-          
-          // Update keystore to hold the node pointer
-          keystore[key] = dll.enqueue({key: key, value: value});
-        }
+      // Reset Node Key if cached value expired
+      if (nodeValue === void 0) {
+        delete keystore[nodeKey];
+      }
+
+      // Drop Node if key already exists
+      if (nodeExist) {
+        dll.delete(nodeExist);
+      }
+
+      // Node not exists
+      let lruNode = dll.enqueue(obj);
+      if (lruNode !== null) {
+        keystore[obj.key] = lruNode;
       }
     },
 
     get: function(key) {
       if (key) {
-        let node = keystore[key],
-            nodeVal = node && node.value();
+        let nodeExist = key && keystore[key] || null,
+            nodeTTI = nodeExist && nodeExist.tti(),
+            nodeValue = nodeExist && nodeExist.value();
+        
+        // Reset Node Key if cached value expired
+        if (nodeValue === void 0) {
+          delete keystore[key];
+        }
 
-        // Check keystore to identify the node
-        if (nodeVal) {
-          dll.delete(node);
-          keystore[key] = dll.enqueue(nodeVal);
-          return nodeVal.value;
+        // Rotate Node if cached value exist
+        if (nodeExist) {
+          let clonedNode = Object.assign({}, {
+            value: nodeValue,
+            timeToIdle: nodeTTI
+          });
+          dll.delete(nodeExist);
+          keystore[key] = dll.enqueue(clonedNode);
+          return nodeValue;
         }
       }
+
+      return void 0;
     },
 
     clear: function(keys) {
       if (keys) {
-        const clearKey = (key) => {
-          // Clear key
-          let node = keystore[key],
-              nodeVal = node && node.value();
+        const clearKey = (key) => dll.delete(keystore[key]);
 
-          if (nodeVal) {
-            dll.delete(node);
-
-            // Delete the key from keystore
-            delete keystore[nodeVal.key];
-
-            // Delete the node
-            delete node.value();
-
-            // Update Index
-            index -= 1;
-          }
-        }
-        if (keys.constructor.name === 'Array') {
+        // Clear Key Array
+        if (keys && keys.constructor && keys.constructor.name === 'Array') {
           keys.forEach(key => clearKey(key));
-        } else if (typeof keys === 'string') {
+        }
+
+        // Clear Key
+        if (typeof keys === 'string') {
           clearKey(keys);
         }
       } else {
         // Clear all
         dll.flush();
-        index = 0;
         keystore = {};
       }
     },
 
-    limit: function(value) {
-      if (value && Number.isInteger(value)) {
-        // Allow resize only if current index is below the new limit
-        if (index < value) {
-          size = value;
-        }
-      }
-    },
+    limit: dll.limit.bind(dll),
+
+    length: dll.length.bind(dll),
 
     // display: function() {
     //   console.log(dll.display());

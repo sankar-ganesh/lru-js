@@ -29,7 +29,24 @@ lru.clear();
 lru.limit(5);
 
 // To set the value in cache => Sets 1 into cache
-lru.set('one', 1);
+lru.set({
+	key: 'one',
+	value: 1
+});
+
+// To set the value in cache with timeToIdle (ms)
+lru.set({
+	key: 'two',
+	value: 2,								// Value will get reset after timeToIdle (ms)
+	timeToIdle: 10000				// Clock will get reset if value is accessed with timeToIdle (ms)
+});
+
+// To set the value in cache with timeToLive (ms)
+lru.set({
+	key: 'three',
+	value: 3,								// Value will be dropped after timeToLive (ms)
+	timeToIdle: 10000				// Clock will get reset only if timeToLive (ms) is updated
+});
 
 // To get the value from cache => Returns 1 from cache
 lru.get('one');
