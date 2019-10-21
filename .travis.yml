@@ -7,6 +7,7 @@ install:
   - npm install -g codecov
 
 before_install:
+  - yarn
   - pip install --user codecov
 
 after_success:
