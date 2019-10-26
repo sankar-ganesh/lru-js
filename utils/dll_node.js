@@ -31,7 +31,6 @@ function DLLNode(node) {
 
 	  return this;
 	}
-	return;
 }
 
 /*

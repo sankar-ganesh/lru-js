@@ -1,8 +1,10 @@
 var assert = require('assert');
 
-import lru from '../lru';
+import LRU from '../lru';
 
-module.exports = function DLLNodeTest() {
+var lru = new LRU('lruTest');
+
+module.exports = function LRUTest() {
   beforeEach(function() {
     lru.clear();
     lru.limit(5);
@@ -37,6 +39,48 @@ module.exports = function DLLNodeTest() {
     });
   	let one = lru.get('two');
     assert.equal(one, void 0);
+  });
+
+  it('check lru has id', function() {
+    assert.equal(lru.getId(), 'lruTest');
+    assert.equal(new LRU().getId(), 'lru');
+  });
+
+  it('check lru has key', function() {
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    assert.equal(lru.hasKey(), false);
+    assert.equal(lru.hasKey('one'), true);
+    assert.equal(lru.hasKey('two'), false);
+  });
+
+  it('check distinct lru', function() {
+    let lruOne = new LRU('lruOne'),
+        lruTwo = new LRU('lruTwo');
+    assert.equal(lruOne.getId(), 'lruOne');
+    assert.equal(lruTwo.getId(), 'lruTwo');
+
+    lruOne.set({
+      key: 'one',
+      value: 'one'
+    });
+    lruTwo.set({
+      key: 'two',
+      value: 'two'
+    });
+    lruTwo.set({
+      key: 'two1',
+      value: 'two1'
+    });
+    assert.equal(lruOne.hasKey('one'), true);
+    assert.equal(lruOne.hasKey('two'), false);
+    assert.equal(lruTwo.hasKey('one'), false);
+    assert.equal(lruTwo.hasKey('two'), true);
+    assert.equal(lruTwo.hasKey('two1'), true);
+    assert.equal(lruOne.length(), 1);
+    assert.equal(lruTwo.length(), 2);
   });
 
   it('check lru clear all', function() {

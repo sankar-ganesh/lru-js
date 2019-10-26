@@ -1,35 +1,45 @@
 var assert = require('assert');
 
-import dll from '../../utils/dll';
+import DLL from '../../utils/dll';
 import sinon from 'sinon';
 
-let clock;
+var clock,
+    dll = new DLL('dllTest');
 
-module.exports = function DLLNodeTest() {
+module.exports = function DLLTest() {
   beforeEach(function() {
     dll.flush();
   });
 
   it('doubly linked list create', function() {
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.getId(), 'dllTest');
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
+  });
+
+  it('doubly linked list create null', function() {
+    let emptyDLL = new DLL();
+    assert.equal(emptyDLL.getId(), 'dll');
+    assert.equal(emptyDLL.headNode(), null);
+    assert.equal(emptyDLL.tailNode(), null);
+    assert.equal(emptyDLL.length(), 0);
   });
 
   it('doubly linked list enqueue', function() {
     dll.enqueue({value: 'one'});
-    assert.notEqual(dll.head(), null);
-    assert.notEqual(dll.tail(), null);
+    assert.notEqual(dll.headNode(), null);
+    assert.notEqual(dll.tailNode(), null);
     assert.equal(dll.length(), 1);
-    assert.equal(dll.head().value(), 'one');
-    assert.equal(dll.tail().value(), 'one');
-    assert.equal(dll.head(), dll.tail());
+    assert.equal(dll.headNode().value(), 'one');
+    assert.equal(dll.tailNode().value(), 'one');
+    assert.equal(dll.headNode(), dll.tailNode());
   });
 
   it('doubly linked list enqueue null', function() {
     dll.enqueue();
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
@@ -40,22 +50,22 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'four'});
     dll.enqueue({value: 'five'});
     assert.equal(dll.length(), 5);
-    assert.equal(dll.head().value(), 'five');
-    assert.equal(dll.tail().value(), 'one');
+    assert.equal(dll.headNode().value(), 'five');
+    assert.equal(dll.tailNode().value(), 'one');
   });
 
   it('doubly linked list dequeue null', function() {
     dll.dequeue();
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
   it('doubly linked list dequeue single and check empty', function() {
     dll.enqueue({value: 'one'});
     dll.dequeue();
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
@@ -66,8 +76,8 @@ module.exports = function DLLNodeTest() {
     dll.dequeue();
     dll.dequeue();
     dll.dequeue();
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
@@ -76,32 +86,32 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'two'});
     dll.enqueue({value: 'three'});
     dll.dequeue();
-    assert.equal(dll.head().value(), 'three');
-    assert.equal(dll.tail().value(), 'two');
-    assert.notEqual(dll.head(), dll.tail());
+    assert.equal(dll.headNode().value(), 'three');
+    assert.equal(dll.tailNode().value(), 'two');
+    assert.notEqual(dll.headNode(), dll.tailNode());
     assert.equal(dll.length(), 2);
   });
 
   it('doubly linked list delete single and check empty', function() {
     let one = dll.enqueue({value: 'one'});
     dll.delete(one);
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
   it('doubly linked list delete nothing', function() {
     dll.delete();
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
   it('doubly linked list delete empty object', function() {
     let one = {};
     dll.delete(one);
-    assert.equal(dll.head(), null);
-    assert.equal(dll.tail(), null);
+    assert.equal(dll.headNode(), null);
+    assert.equal(dll.tailNode(), null);
     assert.equal(dll.length(), 0);
   });
 
@@ -113,8 +123,8 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'five'});
     dll.delete(one);
     dll.delete(four);
-    assert.equal(dll.head().value(), 'five');
-    assert.equal(dll.tail().value(), 'two');
+    assert.equal(dll.headNode().value(), 'five');
+    assert.equal(dll.tailNode().value(), 'two');
     assert.equal(dll.length(), 3);
   });
 
@@ -124,8 +134,8 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'two'});
     dll.enqueue({value: 'three'});
     dll.enqueue({value: 'four'});
-    assert.equal(dll.head().value(), 'four');
-    assert.equal(dll.tail().value(), 'two');
+    assert.equal(dll.headNode().value(), 'four');
+    assert.equal(dll.tailNode().value(), 'two');
     assert.equal(dll.length(), 3);
   });
 
@@ -135,13 +145,13 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'two'});
     dll.limit(3);
     dll.enqueue({value: 'three'});
-    assert.equal(dll.head().value(), 'three');
-    assert.equal(dll.tail().value(), 'one');
+    assert.equal(dll.headNode().value(), 'three');
+    assert.equal(dll.tailNode().value(), 'one');
     assert.equal(dll.length(), 3);
     dll.limit(2);
     dll.enqueue({value: 'four'});
-    assert.equal(dll.head().value(), 'four');
-    assert.equal(dll.tail().value(), 'two');
+    assert.equal(dll.headNode().value(), 'four');
+    assert.equal(dll.tailNode().value(), 'two');
     assert.equal(dll.length(), 3);
   });
 
@@ -158,8 +168,8 @@ module.exports = function DLLNodeTest() {
 
     dll.enqueue({value: 'five'});
     dll.enqueue({value: 'six'});
-    assert.equal(dll.head().value(), 'six');
-    assert.equal(dll.tail().value(), 'three');
+    assert.equal(dll.headNode().value(), 'six');
+    assert.equal(dll.tailNode().value(), 'three');
     assert.equal(dll.length(), 4);
   });
 
@@ -176,8 +186,8 @@ module.exports = function DLLNodeTest() {
 
     dll.enqueue({value: 'five'});
     dll.enqueue({value: 'six'});
-    assert.equal(dll.head().value(), 'six');
-    assert.equal(dll.tail().value(), 'three');
+    assert.equal(dll.headNode().value(), 'six');
+    assert.equal(dll.tailNode().value(), 'three');
     assert.equal(dll.length(), 4);
   });
 
@@ -187,18 +197,18 @@ module.exports = function DLLNodeTest() {
     dll.enqueue({value: 'two', timeToIdle: 1000});
     let three = dll.enqueue({value: 'three', timeToLive: 1000});
     assert.equal(dll.length(), 3);
-    assert.equal(dll.head().value(), 'three');
+    assert.equal(dll.headNode().value(), 'three');
     clock = sinon.useFakeTimers();
     clock.tick(three.bornAt() + 1001);
     assert.equal(dll.length(), 2);
-    assert.equal(dll.head().value(), void 0);
+    assert.equal(dll.headNode().value(), void 0);
     let four = dll.enqueue({value: 'four', timeToLive: 1000});
     clock = sinon.useFakeTimers();
     clock.tick(four.bornAt() + 1001);
     dll.enqueue({value: 'five'});
     assert.equal(dll.length(), 3);
-    assert.equal(dll.head().value(), 'five');
-    assert.equal(dll.tail().value(), 'one');
+    assert.equal(dll.headNode().value(), 'five');
+    assert.equal(dll.tailNode().value(), 'one');
   });
 
   it('doubly linked list checking within ttl', function() {
@@ -225,20 +235,20 @@ module.exports = function DLLNodeTest() {
   // it('doubly linked list add empty object', function() {
   //   let one = {};
   //   dll.add('two', one);
-  //   assert.equal(dll.head().value(), 'two');
-  //   assert.equal(dll.tail().value(), 'two');
+  //   assert.equal(dll.headNode().value(), 'two');
+  //   assert.equal(dll.tailNode().value(), 'two');
   //   assert.equal(dll.length(), 1);
   // });
 
   // it('doubly linked list add after node', function() {
   //   let four = dll.enqueue('four');
   //   let two = dll.enqueue('two');
-  //   assert.equal(dll.head().value(), 'two');
-  //   assert.equal(dll.tail().value(), 'four');
+  //   assert.equal(dll.headNode().value(), 'two');
+  //   assert.equal(dll.tailNode().value(), 'four');
     
   //   // Adding as first node
   //   let one = dll.add('one');
-  //   assert.equal(dll.head().value(), 'one');
+  //   assert.equal(dll.headNode().value(), 'one');
   //   assert.equal(one.left(), null);
   //   assert.equal(one.right().value(), 'two');
   //   assert.equal(two.left().value(), 'one');
@@ -251,7 +261,7 @@ module.exports = function DLLNodeTest() {
   //   assert.equal(three.right().value(), 'four');
 
   //   let five = dll.add('five', four);
-  //   assert.equal(dll.tail().value(), 'five');
+  //   assert.equal(dll.tailNode().value(), 'five');
   //   assert.equal(five.right(), null);
   //   assert.equal(five.left().value(), 'four');
   //   assert.equal(four.right().value(), 'five');
