@@ -166,6 +166,20 @@ DLL.prototype.length = function() {
   return this._index;
 };
 
+DLL.prototype.isLeastNode = function(node) {
+  if (node && node === this._tail) {
+    return true;
+  }
+  return false;
+};
+
+DLL.prototype.isRecentNode = function(node) {
+  if (node && node === this._head) {
+    return true;
+  }
+  return false;
+};
+
 // DLL.prototype.display = function() {
 //   let ptr = this._head,
 //       val = '';

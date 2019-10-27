@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('chai').assert;
 
 import LRU from '../lru';
 
@@ -54,6 +54,42 @@ module.exports = function LRUTest() {
     assert.equal(lru.hasKey(), false);
     assert.equal(lru.hasKey('one'), true);
     assert.equal(lru.hasKey('two'), false);
+  });
+
+  it('check lru for least and recent', function() {
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    lru.set({
+      key: 'two',
+      value: 'two'
+    });
+    lru.set({
+      key: 'three',
+      value: 'three'
+    });
+    assert.equal(lru.isRecent('three'), true);
+    assert.equal(lru.isLeast('two'), false);
+    assert.equal(lru.isRecent('two'), false);
+    assert.equal(lru.isLeast('one'), true);
+  });
+
+  it('check lru for keys availability', function() {
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    lru.set({
+      key: 'two',
+      value: 'two'
+    });
+
+    let keys = lru.keys();
+    assert.lengthOf(keys, 2);
+    assert.include(keys, 'one');
+    assert.include(keys, 'two');
+    assert.notInclude(keys, 'three');
   });
 
   it('check distinct lru', function() {

@@ -8,11 +8,15 @@ import DLL from './utils/dll';
  *  and helps to retain the value when the cache run out of space
  *
  *  Methods:
- *  set     - {key, value} sets the value to LRU Cache
- *  get     - {key} fetch the value from LRU Cache
- *  clear   - {keys} Bust all given keys in the cache
- *  limit   - {size} set the size of the cache
- *  length  - returns the length of the active keys in cache
+ *  set       - {key, value} sets the value to LRU Cache
+ *  get       - {key} fetch the value from LRU Cache
+ *  clear     - {keys} Bust all given keys in the cache
+ *  limit     - {size} set the size of the cache
+ *  length    - returns the length of the active keys in cache
+ *  hasKey    - {key} returns TRUE if the key is taken in the cache
+ *  isLeast   - {key} returns TRUE if the key is least in the cache
+ *  isRecent  - {key} returns TRUE if the key is recent in the cache
+ *  keys      - returns all keys in the cache
  */
 
 function LRU(id) {
@@ -113,6 +117,18 @@ LRU.prototype.hasKey = function(key) {
     return false;
   }
   return false;
+};
+
+LRU.prototype.isLeast = function(key) {
+  return this._dll.isLeastNode(this._keystore[key]);
+};
+
+LRU.prototype.isRecent = function(key) {
+  return this._dll.isRecentNode(this._keystore[key]);
+};
+
+LRU.prototype.keys = function() {
+  return Object.keys(this._keystore);
 };
 
 // LRU.prototype.display = function() {

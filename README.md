@@ -82,6 +82,18 @@ Sets the maximum size limit for the cache
 
 - returns false if the key is not taken before
 
+### isLeast
+
+- returns true if the key is least in the cache
+
+### isRecent
+
+- returns true if the key is recent in the cache
+
+### keys
+
+- returns all keys in the cache
+
 ## Usage
 
 ```javascript
