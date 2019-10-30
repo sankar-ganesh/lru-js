@@ -21,6 +21,20 @@ function DLL(id, size) {
   this._size = size || 5;
   this._head = this._tail = null;
   this._index = 0;
+  
+  // DLL Events
+  this._events = {
+    CREATED: 'created',
+    UPDATED: 'updated',
+    DELETED: 'deleted'
+  };
+  
+  // Wrapper for event callback
+  this._trigger = (evt, payload) => {
+    if (this._eventCallback && typeof this._eventCallback === 'function') {
+      this._eventCallback(evt, payload);
+    }
+  }
   return this;
 }
 
@@ -37,7 +51,7 @@ DLL.prototype.tailNode = function() {
 };
 
 DLL.prototype.enqueue = function(obj) {
-  if (obj && obj.value) {
+  if (obj && obj.key && obj.value) {
     // Walk The DLL & clear expired cache
     if (this._index >= this._size) {
       this.walkTheDLL();
@@ -49,6 +63,7 @@ DLL.prototype.enqueue = function(obj) {
     }
 
     let dllNode = new DLLNode({
+      key: obj.key,
       value: obj.value,
       left: null,
       right: null,
@@ -80,6 +95,13 @@ DLL.prototype.enqueue = function(obj) {
 
 DLL.prototype.dequeue = function() {
   if (this._head && this._tail) {
+    // Trigger Event
+    this._trigger(this._events.DELETED, {
+      key: this._tail.key(),
+      oldValue: void 0,
+      newValue: this._tail.value()
+    });
+
     this.delete(this._tail);
   }
 };
@@ -106,9 +128,9 @@ DLL.prototype.delete = function(node) {
     }
 
     // Staled Node
-    if (left === null && right === null && this._head !== this._tail) {
-      return;
-    }
+    // if (left === null && right === null && this._head !== this._tail) {
+    //   return;
+    // }
 
     // Update node
     node.reset();
@@ -142,6 +164,12 @@ DLL.prototype.walkTheDLL = function() {
   while (ptr !== null) {
     // Delete the node if cache has expired
     if (ptr.tte()) {
+      // Trigger Event
+      this._trigger(this._events.DELETED, {
+        key: ptr.key(),
+        oldValue: void 0,
+        newValue: ptr.value()
+      });
       this.delete(ptr);
     }
 
@@ -178,6 +206,18 @@ DLL.prototype.isRecentNode = function(node) {
     return true;
   }
   return false;
+};
+
+DLL.prototype.registerEventCallback = function(callback) {
+  this._eventCallback = callback;
+};
+
+DLL.prototype.deregisterEventCallback = function() {
+  delete this._eventCallback;
+};
+
+DLL.prototype.events = function() {
+  return this._events;
 };
 
 // DLL.prototype.display = function() {

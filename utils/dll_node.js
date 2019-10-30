@@ -10,7 +10,8 @@
  */
 
 function DLLNode(node) {
-	if (node && node.value !== void 0) {
+	if (node && node.key !== void 0 && node.value !== void 0) {
+		this._nodeKey = node.key;
 	  this._nodeValue = node.value;
 	  this._leftNode = node.left || null;
 	  this._rightNode = node.right || null;
@@ -48,6 +49,14 @@ DLLNode.prototype.setValue = function(value) {
 	  }
 	}
 	return this;
+};
+
+/*
+ * Get The Key
+ * @return {string} key The Node Key
+ */
+DLLNode.prototype.key = function() {
+	return this._nodeKey;
 };
 
 /*

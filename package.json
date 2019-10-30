@@ -1,24 +1,29 @@
 {
   "name": "lrujs-cache",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
     "build": "webpack --mode production",
     "develop": "webpack --mode development --watch",
-    "lint": "eslint --ignore-path=.gitignore . test",
+    "lint": "eslint --ignore-path=.gitignore . utils test",
     "test": "nyc --reporter=lcov --reporter=text mocha --require @babel/register"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sankar-ganesh/lrujs-cache.git"
   },
   "keywords": [
-    "LRU",
-    "Cache",
-    "lru cache"
+    "lru",
+    "cache",
+    "js cache"
   ],
-  "author": "Sankar Ganesh",
+  "authors": [
+    "Sankar Ganesh <sankar.ganesh@freshworks.com>"
+  ],
   "license": "ISC",
   "private": false,
   "devDependencies": {

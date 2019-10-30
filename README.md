@@ -2,7 +2,7 @@
 
 Least Recently Used (LRU) Caching Technique
 
-[![Build Status](https://travis-ci.org/sankar-ganesh/lrujs-cache.svg?branch=master)](https://travis-ci.org/sankar-ganesh/lrujs-cache) [![codecov](https://codecov.io/gh/sankar-ganesh/lrujs-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/sankar-ganesh/lrujs-cache) [![NPM version](https://img.shields.io/npm/v/lrujs-cache.svg)](https://www.npmjs.com/package/lrujs-cache)
+[![Build Status](https://travis-ci.org/sankar-ganesh/lrujs-cache.svg?branch=master)](https://travis-ci.org/sankar-ganesh/lrujs-cache) [![codecov](https://codecov.io/gh/sankar-ganesh/lrujs-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/sankar-ganesh/lrujs-cache) [![NPM version](https://img.shields.io/npm/v/lrujs-cache.svg)](https://www.npmjs.com/package/lrujs-cache) [![gzip size](https://img.badgesize.io/https://unpkg.com/lrujs-cache/dist/lru.js?compression=gzip)](https://www.npmjs.com/package/lrujs-cache)
 
 ## Design
 
@@ -21,6 +21,8 @@ Least Recently Used (LRU) Caching Technique
 - Removes the least recently accessed node from the cache when limit exceeds
 
 - `length` returns the number of live nodes in the cache
+
+- Register for node key events and handle the application logic
 
 ## API
 
@@ -94,6 +96,22 @@ Sets the maximum size limit for the cache
 
 - returns all keys in the cache
 
+### events
+
+- returns all LRU key events `{CREATED: "created", UPDATED: "updated", DELETED: "deleted"}`
+
+### registerEventCallback
+
+Registers the callback to listen to LRU key events
+
+**Parameters**
+
+- `callback` function to listen to LRU key events
+
+### deregisterEventCallback
+
+De-registers the LRU key events listener
+
 ## Usage
 
 ```javascript
@@ -148,6 +166,16 @@ lru.clear('one');
 
 // To clear multiple keys from cache
 lru.clear(['one', 'two']);
+
+/*
+ * Sample Output - To listen to LRU Key Events
+ * LRU Event Triggered => created : {"key":"one","oldValue":null,"newValue":"one"}
+ * LRU Event Triggered => updated : {"key":"one","oldValue":"one","newValue":"1"}
+ * LRU Event Triggered => deleted : {"key":"one","newValue":"1"}
+ */
+lru.registerEventCallback(function(evt, payload) {
+	console.log(`LRU Event Triggered => ${evt} : ${JSON.stringify(payload)}`);
+});
 ```
 
 ## Installation

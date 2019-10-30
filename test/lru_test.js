@@ -6,6 +6,7 @@ var lru = new LRU('lruTest');
 
 module.exports = function LRUTest() {
   beforeEach(function() {
+    lru.deregisterEventCallback();
     lru.clear();
     lru.limit(5);
   });
@@ -386,5 +387,68 @@ module.exports = function LRUTest() {
     });
     assert.equal(lru.get('one'), 'two');
     assert.equal(lru.length(), 1);
+  });
+
+  it('check if lru receives updated event', function() {
+    assert.equal(lru.events().CREATED, 'created');
+    assert.equal(lru.events().UPDATED, 'updated');
+    assert.equal(lru.events().DELETED, 'deleted');
+  });
+
+  it('check if lru receives created event', function() {
+    lru.registerEventCallback(() => {
+      // console.log(`LRU Event Triggered`);
+      assert(true);
+    });
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+  });
+
+  it('check if lru receives updated event', function() {
+    lru.registerEventCallback(() => {
+      // console.log(`LRU Event Triggered`);
+      assert(true);
+    });
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    lru.set({
+      key: 'one',
+      value: '1'
+    });
+  });
+
+  it('check if lru receives deleted event', function() {
+    lru.registerEventCallback(() => {
+      // console.log(`LRU Event Triggered`);
+      assert(true);
+    });
+    lru.limit(1);
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    lru.set({
+      key: 'two',
+      value: 'two'
+    });
+  });
+
+  it('dll should allow to clear event listeners', function() {
+    lru.set({
+      key: 'one',
+      value: 'one'
+    });
+    lru.registerEventCallback(() => {
+      assert(false);
+    });
+    lru.deregisterEventCallback();
+    lru.set({
+      key: 'one',
+      value: '1'
+    });
   });
 };

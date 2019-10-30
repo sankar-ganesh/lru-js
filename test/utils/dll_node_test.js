@@ -15,28 +15,28 @@ module.exports = function DLLNodeTest() {
   });
 
   it('dll node should return value 0', function() {
-    assert.equal(new DLLNode({value: 0}).value(), 0);
+    assert.equal(new DLLNode({key: 'one', value: 0}).value(), 0);
   });
 
   it('dll node should return value null', function() {
-    assert.equal(new DLLNode({value: null}).value(), null);
+    assert.equal(new DLLNode({key: 'one', value: null}).value(), null);
   });
 
   it('dll node should return value empty string', function() {
-    assert.equal(new DLLNode({value: ''}).value(), '');
+    assert.equal(new DLLNode({key: 'one', value: ''}).value(), '');
   });
 
   it('dll node should return value 1', function() {
-    assert.equal(new DLLNode({value: 1}).value(), 1);
+    assert.equal(new DLLNode({key: 'one', value: 1}).value(), 1);
   });
 
   it('dll node should return value valid string', function() {
-    assert.equal(new DLLNode({value: 'one'}).value(), 'one');
+    assert.equal(new DLLNode({key: 'one', value: 'one'}).value(), 'one');
   });
 
   it('dll node should return value valid object', function() {
     let dllValue = {'one': 1},
-        dllNode = new DLLNode({value: dllValue});
+        dllNode = new DLLNode({key: 'one', value: dllValue});
     assert.equal(dllNode.value(), dllValue);
   });
 
@@ -49,6 +49,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return node with two pointers and given values on create', function() {
   	let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right'
@@ -62,6 +63,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return node with two pointers and given values on update', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right'
@@ -76,6 +78,7 @@ module.exports = function DLLNodeTest() {
 
   it('should allow only possible updates', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right'
@@ -90,6 +93,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return default tti and createdAt', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right',
@@ -121,6 +125,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return valid tti and createdAt', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       tti: 1
     });
@@ -139,6 +144,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return void if tti has expired', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right',
@@ -155,6 +161,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return default value after reset', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right',
@@ -170,6 +177,7 @@ module.exports = function DLLNodeTest() {
 
   it('should reset createdAt when value is updated', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right',
@@ -189,6 +197,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return true if tte has reached', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right',
@@ -205,6 +214,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return false for tte and reset bornAt if ttl is not set', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right'
@@ -215,6 +225,7 @@ module.exports = function DLLNodeTest() {
 
   it('should return tte and bornAt if ttl is set', function() {
     let dllNode = new DLLNode({
+      key: 'test',
       value: 'test',
       left: 'left',
       right: 'right'
