@@ -2,7 +2,7 @@
 
 Least Recently Used (LRU) Caching Technique
 
-[![Build Status](https://travis-ci.org/sankar-ganesh/lrujs-cache.svg?branch=master)](https://travis-ci.org/sankar-ganesh/lrujs-cache) [![codecov](https://codecov.io/gh/sankar-ganesh/lrujs-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/sankar-ganesh/lrujs-cache) [![NPM version](https://img.shields.io/npm/v/lrujs-cache.svg)](https://www.npmjs.com/package/lrujs-cache) [![gzip size](https://img.badgesize.io/https://unpkg.com/lrujs-cache/dist/lru.js?compression=gzip)](https://www.npmjs.com/package/lrujs-cache)
+[![Build Status](https://travis-ci.org/sankar-ganesh/lrujs-cache.svg?branch=master)](https://travis-ci.org/sankar-ganesh/lrujs-cache) [![codecov](https://codecov.io/gh/sankar-ganesh/lrujs-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/sankar-ganesh/lrujs-cache) [![NPM version](https://img.shields.io/npm/v/lrujs-cache.svg)](https://www.npmjs.com/package/lrujs-cache) [![gzip size](https://img.badgesize.io/https://unpkg.com/lrujs-cache/dist/lru.js?compression=gzip)](https://www.npmjs.com/package/lrujs-cache) [![dependencies Status](https://david-dm.org/sankar-ganesh/lrujs-cache/status.svg)](https://david-dm.org/sankar-ganesh/lrujs-cache)
 
 ## Design
 
