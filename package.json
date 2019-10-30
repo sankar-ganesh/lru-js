@@ -1,6 +1,6 @@
 {
   "name": "lrujs-cache",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "test": "nyc --reporter=lcov --reporter=text mocha --require @babel/register"
   },
   "files": [
-    "dist"
+    "lru.js",
+    "index.js",
+    "utils",
+    "dist/lru.js"
   ],
   "repository": {
     "type": "git",
