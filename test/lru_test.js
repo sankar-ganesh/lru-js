@@ -451,4 +451,43 @@ module.exports = function LRUTest() {
       value: '1'
     });
   });
+
+  it('check if lru receives hit event', function() {
+    let key = 'one';
+    lru.registerEventCallback((evt, payload) => {
+      // console.log(`LRU Event Triggered ${evt} ${JSON.stringify(payload)}`);
+      if (evt === lru.events().HIT) {
+        if (payload.key === key) {
+          assert(true);
+        } else {
+          assert(false);
+        }
+      }
+    });
+    lru.set({
+      key: key,
+      value: 'one'
+    });
+    lru.get(key);
+  });
+
+  it('check if lru receives missed event', function() {
+    let key = 'one',
+        altKey = 'two';
+    lru.registerEventCallback((evt, payload) => {
+      // console.log(`LRU Event Triggered ${evt} ${JSON.stringify(payload)}`);
+      if (evt === lru.events().MISSED) {
+        if (payload.key === altKey) {
+          assert(true);
+        } else {
+          assert(false);
+        }
+      }
+    });
+    lru.set({
+      key: key,
+      value: 'one'
+    });
+    lru.get(altKey);
+  });
 };

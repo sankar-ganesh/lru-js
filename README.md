@@ -98,7 +98,19 @@ Sets the maximum size limit for the cache
 
 ### events
 
-- returns all LRU key events `{CREATED: "created", UPDATED: "updated", DELETED: "deleted"}`
+- returns all LRU key events
+
+- LRU key events
+
+	```json
+		{
+			CREATED : "created",
+			UPDATED : "updated",
+			DELETED : "deleted",
+			MISSED 	: "missed",
+			HIT 		: "hit"
+		}
+	```
 
 ### registerEventCallback
 
@@ -172,6 +184,8 @@ lru.clear(['one', 'two']);
  * LRU Event Triggered => created : {"key":"one","oldValue":null,"newValue":"one"}
  * LRU Event Triggered => updated : {"key":"one","oldValue":"one","newValue":"1"}
  * LRU Event Triggered => deleted : {"key":"one","newValue":"1"}
+ * LRU Event Triggered => missed  : {"key":"one"}
+ * LRU Event Triggered => hit     : {"key":"one"}
  */
 lru.registerEventCallback(function(evt, payload) {
 	console.log(`LRU Event Triggered => ${evt} : ${JSON.stringify(payload)}`);

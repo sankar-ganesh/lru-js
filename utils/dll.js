@@ -24,9 +24,11 @@ function DLL(id, size) {
   
   // DLL Events
   this._events = {
-    CREATED: 'created',
-    UPDATED: 'updated',
-    DELETED: 'deleted'
+    CREATED : 'created',
+    UPDATED : 'updated',
+    DELETED : 'deleted',
+    MISSED  : 'missed',
+    HIT     : 'hit'
   };
   
   // Wrapper for event callback

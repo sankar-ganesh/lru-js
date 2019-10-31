@@ -76,6 +76,7 @@ LRU.prototype.set = function(obj) {
 };
 
 LRU.prototype.get = function(key) {
+  let dllEvents = this._dll.events();
   if (key) {
     let nodeExist = key && this._keystore[key] || null,
         nodeTTI = nodeExist && nodeExist.tti(),
@@ -100,12 +101,22 @@ LRU.prototype.get = function(key) {
 
       // Enqueue the cloned node
       this._keystore[key] = this._dll.enqueue(clonedNode);
-      
+
+      // Trigger HIT EVENT
+      this._trigger(dllEvents.HIT, {
+        key: key
+      });
+
       // Return the node value
       return nodeValue;
     }
   }
 
+  // Trigger MISSED EVENT
+  this._trigger(dllEvents.MISSED, {
+    key: key
+  });
+  
   return void 0;
 };
 
