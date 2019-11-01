@@ -104,11 +104,11 @@ Sets the maximum size limit for the cache
 
 	```json
 		{
-			CREATED : "created",
-			UPDATED : "updated",
-			DELETED : "deleted",
-			MISSED 	: "missed",
-			HIT 		: "hit"
+			"CREATED" : "created",
+			"UPDATED" : "updated",
+			"DELETED" : "deleted",
+			"MISSED"  : "missed",
+			"HIT" 	  : "hit"
 		}
 	```
 
