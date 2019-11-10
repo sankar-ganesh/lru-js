@@ -56,13 +56,31 @@ Fetches the value stored against the key in the cache. Updates the recently used
 
 - `key` identifier for the value stored in the cache
 
+### find
+
+Identifies all the value stored in the cache against the key pattern and return the result array. Updates the recently used list.
+
+`timeToIdle` will get reset when the value is accessed.
+
+**Parameters**
+
+- `pattern` matches the identifier for the value stored in the cache
+
+**Example**
+
+- `lru.find('*keys*')` display all key contains the string `keys`
+
 ### clear
 
 Clear all values in the cache
 
 **Parameters**
 
-- `keys` one key (or) array of keys to be cleared
+- `keys` one key (or) array of keys to be cleared (or) key pattern to be cleared
+
+**Example**
+
+- `lru.clear('*keys*')` clears all key contains the string `keys`
 
 ### limit
 

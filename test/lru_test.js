@@ -120,6 +120,25 @@ module.exports = function LRUTest() {
     assert.equal(lruTwo.length(), 2);
   });
 
+  it('check lru key using pattern', function() {
+    lru.set({
+      key: 'key1',
+      value: 'one'
+    });
+    lru.set({
+      key: 'key2',
+      value: 'two'
+    });
+    lru.set({
+      key: 'key3',
+      value: 'three'
+    });
+    assert.equal(lru.find('*').length, 0);
+    assert.equal(lru.find('keys*').length, 0);
+    assert.equal(lru.find('key1*').length, 1);
+    assert.equal(lru.find('key*').length, 3);
+  });
+
   it('check lru clear all', function() {
   	lru.set({
       key: 'one',
@@ -253,6 +272,29 @@ module.exports = function LRUTest() {
     assert.equal(lru.get('three'), 'three');
     assert.equal(lru.get('four'), 'four');
     assert.equal(lru.get('five'), 'five');
+  });
+
+  it('check lru key using pattern', function() {
+    lru.set({
+      key: 'key1',
+      value: 'one'
+    });
+    lru.set({
+      key: 'key2',
+      value: 'two'
+    });
+    lru.set({
+      key: 'key3',
+      value: 'three'
+    });
+    lru.clear('*');
+    assert.equal(lru.find('key*').length, 3);
+    lru.clear('keys*');
+    assert.equal(lru.find('key*').length, 3);
+    lru.clear('key1*');
+    assert.equal(lru.find('key*').length, 2);
+    lru.clear('key*');
+    assert.equal(lru.find('key*').length, 0);
   });
 
   it('check lru rotate', function() {

@@ -38,6 +38,20 @@ function LRU(id) {
       this._eventCallback(evt, payload);
     }
   }
+
+  // Utils Functions
+  this._utils = {
+    coercePattern: function(pattern) {
+      let checkForAsterisks = (pattern && pattern.indexOf('*') !== -1)? true : false;
+      if (checkForAsterisks) {
+        let keyStartWith = pattern.replace(/\*/g, '');
+        if (keyStartWith) {
+          return keyStartWith;
+        }
+      }
+      return null;
+    }
+  };
   return this;
 }
 
@@ -120,6 +134,21 @@ LRU.prototype.get = function(key) {
   return void 0;
 };
 
+LRU.prototype.find = function(pattern) {
+  let keyStartWith = this._utils.coercePattern(pattern),
+      result = [];
+  if (keyStartWith) {
+    let keys = this.keys();
+
+    keys.forEach(key => {
+      if (key.indexOf(keyStartWith) !== -1) {
+        result.push(this.get(key));
+      }
+    });
+  }
+  return result;
+};
+
 LRU.prototype.clear = function(keys) {
   if (keys) {
     const clearKey = (key) => {
@@ -134,7 +163,19 @@ LRU.prototype.clear = function(keys) {
 
     // Clear Key
     if (typeof keys === 'string') {
-      clearKey(keys);
+      // Clear key pattern
+      let keyStartWith = this._utils.coercePattern(keys);
+      if (keyStartWith) {
+        let keyset = this.keys();
+
+        keyset.forEach(key => {
+          if (key.indexOf(keyStartWith) !== -1) {
+            clearKey(key);
+          }
+        });
+      } else {
+        clearKey(keys);
+      }
     }
   } else {
     // Clear all
