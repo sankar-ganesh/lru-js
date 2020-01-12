@@ -1,6 +1,6 @@
 {
   "name": "lrujs-cache",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "authors": [
     "Sankar Ganesh <sankar.ganesh@freshworks.com>"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "private": false,
   "devDependencies": {
     "@babel/cli": "^7.6.4",
