@@ -1,6 +1,6 @@
 {
   "name": "lrujs-cache",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
