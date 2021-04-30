@@ -1,6 +1,6 @@
 {
   "name": "lrujs-cache",
-  "version": "2.4.7",
+  "version": "2.4.8",
   "description": "Least Recently Used Cache",
   "main": "lru.js",
   "scripts": {
@@ -30,19 +30,19 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/node": "^7.10.5",
-    "@babel/plugin-transform-arrow-functions": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/register": "^7.10.5",
-    "babel-loader": "^8.1.0",
-    "chai": "^4.2.0",
-    "eslint": "^7.6.0",
-    "mocha": "^8.1.1",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/plugin-transform-arrow-functions": "^7.13.0",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/register": "^7.13.16",
+    "babel-loader": "^8.2.2",
+    "chai": "^4.3.4",
+    "eslint": "^7.25.0",
+    "mocha": "^8.3.2",
     "nyc": "^15.1.0",
-    "sinon": "^9.0.2",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "sinon": "^10.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.6.0"
   }
 }
